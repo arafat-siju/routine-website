@@ -194,25 +194,66 @@
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             transition: transform 0.3s ease;
         }
 
         .routine-day:hover {
-            transform: translateX(10px);
+            transform: translateX(5px);
             background: rgba(255, 255, 255, 0.3);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
         }
 
         .day-name {
             font-weight: bold;
             font-size: 1.2em;
+            flex-shrink: 0;
         }
 
-        .day-subject {
-            font-size: 1.1em;
+        .day-info {
             text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .class-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .subject-name {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .time-slot {
+            font-size: 0.9em;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .time-slot::before {
+            content: '🕐';
+            font-size: 0.9em;
+        }
+
+        .no-class {
+            text-align: center;
+            opacity: 0.7;
+            font-style: italic;
         }
 
         @media (max-width: 600px) {
@@ -226,5 +267,14 @@
 
             .cycle-grid {
                 grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            }
+
+            .day-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .day-info {
+                width: 100%;
             }
         }

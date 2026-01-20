@@ -111,32 +111,44 @@
 
         const routines = {
             'A-odd': [
-                { day: 'Sunday', subject: 'ME (drawing)' },
-                { day: 'Monday', subject: '' },
-                { day: 'Tuesday', subject: '' },
-                { day: 'Wednesday', subject: 'Analog' },
-                { day: 'Thursday', subject: 'DELC (digital)' }
+                { day: 'Sunday', classes: [{ subject: 'ME (drawing)', time: '10:40 - 1:10' }] },
+                { day: 'Monday', classes: [] },
+                { day: 'Tuesday', classes: [] },
+                { day: 'Wednesday', classes: [{ subject: 'Analog (II)', time: '2:30 - 5:00' }] },
+                { day: 'Thursday', classes: [{ subject: 'DELC (digital)', time: '2:30 - 5:00' }] }
             ],
             'A-even': [
-                { day: 'Sunday', subject: '' },
-                { day: 'Monday', subject: '' },
-                { day: 'Tuesday', subject: '' },
-                { day: 'Wednesday', subject: 'Signal' },
-                { day: 'Thursday', subject: 'CSE, DELC (digital)' }
+                { day: 'Sunday', classes: [] },
+                { day: 'Monday', classes: [] },
+                { day: 'Tuesday', classes: [] },
+                { day: 'Wednesday', classes: [{ subject: 'Signal & Systems', time: '2:30 - 5:00' }] },
+                { 
+                    day: 'Thursday', 
+                    classes: [
+                        { subject: 'CSE', time: '8:00 - 10:30' },
+                        { subject: 'DELC (digital)', time: '2:30 - 5:00' }
+                    ]
+                }
             ],
             'B-odd': [
-                { day: 'Sunday', subject: 'DELC (digital)' },
-                { day: 'Monday', subject: '' },
-                { day: 'Tuesday', subject: '' },
-                { day: 'Wednesday', subject: 'Signal' },
-                { day: 'Thursday', subject: 'CSE' }
+                { day: 'Sunday', classes: [{ subject: 'DELC (digital)', time: '2:30 - 5:00' }] },
+                { day: 'Monday', classes: [] },
+                { day: 'Tuesday', classes: [] },
+                { day: 'Wednesday', classes: [{ subject: 'Signal & Systems', time: '2:30 - 5:00' }] },
+                { day: 'Thursday', classes: [{ subject: 'CSE', time: '8:00 - 10:30' }] }
             ],
             'B-even': [
-                { day: 'Sunday', subject: 'ME (drawing), DELC (digital)' },
-                { day: 'Monday', subject: '' },
-                { day: 'Tuesday', subject: '' },
-                { day: 'Wednesday', subject: 'Analog' },
-                { day: 'Thursday', subject: '' }
+                { 
+                    day: 'Sunday', 
+                    classes: [
+                        { subject: 'ME (drawing)', time: '10:40 - 1:10' },
+                        { subject: 'DELC (digital)', time: '2:30 - 5:00' }
+                    ]
+                },
+                { day: 'Monday', classes: [] },
+                { day: 'Tuesday', classes: [] },
+                { day: 'Wednesday', classes: [{ subject: 'Analog (II)', time: '2:30 - 5:00' }] },
+                { day: 'Thursday', classes: [] }
             ]
         };
 
@@ -160,17 +172,28 @@
 
             let html = `
                 <div class="routine-container">
-                    <div class="routine-title">📅 Routine - Group ${group}, Cycle ${cycle}</div>
+                    <div class="routine-title">📅 LAB Routine - Group ${group}, Cycle ${cycle}</div>
             `;
 
             routine.forEach(day => {
-                const subject = day.subject || '—';
-                html += `
-                    <div class="routine-day">
-                        <div class="day-name">${day.day}</div>
-                        <div class="day-subject">${subject}</div>
-                    </div>
-                `;
+                html += `<div class="routine-day"><div class="day-header"><div class="day-name">${day.day}</div>`;
+                
+                if (day.classes.length === 0) {
+                    html += `<div class="day-info"><div class="no-class">no LAB</div></div>`;
+                } else {
+                    html += `<div class="day-info">`;
+                    day.classes.forEach(classItem => {
+                        html += `
+                            <div class="class-item">
+                                <div class="subject-name">${classItem.subject}</div>
+                                <div class="time-slot">${classItem.time}</div>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                }
+                
+                html += `</div></div>`;
             });
 
             html += '</div>';
